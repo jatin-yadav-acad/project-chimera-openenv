@@ -1,0 +1,15 @@
+# Node
+node_modules/
+frontend/node_modules/
+
+# Next.js
+.next/
+frontend/.next/
+
+# Build output
+out/
+frontend/out/
+
+# Misc
+*.log
+.env
