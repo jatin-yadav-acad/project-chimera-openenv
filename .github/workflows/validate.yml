@@ -23,7 +23,7 @@ jobs:
       - name: Install OpenEnv
         run: |
           python -m pip install --upgrade pip
-          pip install openenv
+          python -m pip install openenv
 
       - name: Validate OpenEnv Config
-        run: python -m openenv validate .
+        run: python -m openenv.cli.main validate .
