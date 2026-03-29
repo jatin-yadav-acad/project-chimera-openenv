@@ -25,8 +25,8 @@ COPY openenv.yaml ./openenv.yaml
 # Copy frontend static build into /app/static
 COPY --from=frontend-builder /app/frontend/out ./static
 
-# Expose port 8000 for Hugging Face Spaces / Docker
-EXPOSE 8000
+# Expose port 7860 for Hugging Face Spaces / Docker
+EXPOSE 7860
 
 # Start Uvicorn pointing to the backend module
 CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
