@@ -26,4 +26,6 @@ jobs:
           python -m pip install openenv
 
       - name: Validate OpenEnv Config
-        run: python -m openenv.cli.main validate .
+        run: |
+          python -c "import openenv; print('OpenEnv installed OK')"
+          python -m openenv.cli.main validate .
