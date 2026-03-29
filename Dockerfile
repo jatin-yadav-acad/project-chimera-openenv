@@ -5,7 +5,7 @@ WORKDIR /app/frontend
 COPY frontend/package.json ./
 # Provide a minimal package.json if it doesn't exist to ensure npm install succeeds
 # We will create this in the codebase so it gets copied properly.
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY frontend/ ./
 RUN npm run build
