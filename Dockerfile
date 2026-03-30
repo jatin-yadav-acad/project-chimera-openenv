@@ -29,5 +29,4 @@ COPY --from=frontend-builder /app/frontend/out ./static
 EXPOSE 7860
 
 # Start Uvicorn pointing to the backend module
-
-CMD ["python", "-c", "print('container started'); import time; time.sleep(10000)"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "7860"]
