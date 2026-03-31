@@ -3,8 +3,6 @@ FROM node:20-alpine AS frontend-builder
 WORKDIR /app/frontend
 
 COPY frontend/package.json ./
-# Provide a minimal package.json if it doesn't exist to ensure npm install succeeds
-# We will create this in the codebase so it gets copied properly.
 RUN npm install --legacy-peer-deps
 
 COPY frontend/ ./
@@ -25,7 +23,7 @@ COPY openenv.yaml ./openenv.yaml
 # Copy frontend static build into /app/static
 COPY --from=frontend-builder /app/frontend/out ./static
 
-# Expose port 8000 for Hugging Face Spaces / Docker
+# Expose Hugging Face Spaces port
 EXPOSE 7860
 
 # Start Uvicorn pointing to the backend module

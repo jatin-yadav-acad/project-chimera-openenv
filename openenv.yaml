@@ -1,23 +1,6 @@
-version: 1.0
-project: Project Chimera Environment
-author: Antigravity
-
-tasks:
-  - id: easy_hallucination
-    name: "Easy (Supply Chain Hallucination)"
-    description: "Identify and exploit a hallucinated dependency imported in the package config."
-    difficulty: easy
-    max_steps: 10
-
-  - id: medium_crypto
-    name: "Medium (Crypto Downgrade)"
-    description: "Force the TLS handshake to downgrade to an insecure cipher cipher."
-    difficulty: medium
-    max_steps: 20
-
-  - id: hard_toctou
-    name: "Hard (TOCTOU Race Condition)"
-    description: "Execute a multi-threaded attack sequence to double-withdraw funds before the lock engages."
-    difficulty: hard
-    max_steps: 50
-    reward_threshold: 1.0
+spec_version: 1
+name: project_chimera
+type: space
+runtime: fastapi
+app: backend.main:app
+port: 7860
