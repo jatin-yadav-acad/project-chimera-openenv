@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from .environment import SandboxEnvironment
 from .grader import Grader
@@ -88,6 +89,11 @@ async def step(action: ChimeraAction):
         done=reward_payload.is_done,
         info={
             "explanation": reward_payload.explanation,
+            "metrics": {
+                "balance": env.state["account_balance"],
+                "exploit_success": env.exploit_success,
+                "step_count": env.step_count
+            },
             "state": {
                 "account_balance": env.state["account_balance"],
                 "transaction_log": env.state["transaction_log"],
@@ -122,6 +128,22 @@ def mcp_stub():
     }
 
 
+# --- STATIC MOUNTING & FRONTEND ROUTING ---
 static_dir = Path(__file__).resolve().parent.parent / "static"
+
 if static_dir.exists():
-    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+    # Mount Next.js system files strictly to their expected path
+    next_dir = static_dir / "_next"
+    if next_dir.exists():
+        app.mount("/_next", StaticFiles(directory=next_dir), name="nextjs")
+    
+    # Catch-all route: Handles page refreshes and static assets (like images/favicons)
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        file_path = static_dir / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        # Fallback to the React router
+        return FileResponse(static_dir / "index.html")
+else:
+    print(f"WARNING: Static directory not found at {static_dir}")
