@@ -3,3 +3,4 @@ uvicorn
 pydantic
 requests
 openai
+openenv @ git+https://github.com/meta-pytorch/OpenEnv.git
