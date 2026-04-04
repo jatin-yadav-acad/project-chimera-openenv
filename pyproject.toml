@@ -13,8 +13,5 @@ dependencies = [
     "openenv-core>=0.2.0"
 ]
 
-[project.scripts]
-server = "server.app:main"
-
 [tool.openenv]
 entrypoint = "backend.main:app"
